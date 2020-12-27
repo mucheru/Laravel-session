@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserRegistration;
 //namespace App\Http\Controllers;
 
 
@@ -19,21 +20,27 @@ use App\Http\Controllers\LoginController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::view('createuser','createUser');
 
 Route::view('login','login');
 Route::post('/login', [LoginController::class, 'index']);
 Route::post('/profile', [LoginController::class, 'index']);
-Route::view('profile','profile');
+Route::post('register', [UserRegistration::class, 'index']);
 
 Route::get('profile', function () {
-    if(!session()->has('data'))
-    {
-       return redirect('login'); 
-    }
-    return view('profile');
+   
 });
 
 Route::get('logout', [LoginController::class, 'logout']);
+Route::view('profile','profile');
+
+
+/*Route::group(['middleware'=>['CustomAuth']], function(){
+    Route::view('profile','profile');
+
+
+
+});*/
 
 
 

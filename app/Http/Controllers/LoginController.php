@@ -3,21 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+
 
 class LoginController extends Controller
 {
     function index(Request $request)
     {
-        $session_data=$request->session()->put('data',$request->input());
-        $request->session()->get('data');
-        return redirect('profile');
+        $user=User::where(['email'=>$request->uname])->first();
+        if(!$user || !Hash::check($request->password,$user->password))
+        {
+            return "username or password not matched";
 
+        }else{
+            $session_data=$request->session()->put('data',$request->input());
+            $request->session()->get('data');
+            return view('profile');
+        }     
+       
     }
 
     public function logout(Request $request)
     {
        $request->session()->forget('data');
         return redirect('login');
-
     }
 }
