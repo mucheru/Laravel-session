@@ -19,8 +19,10 @@ class CustomAuth
         if(!session()->has('data'))
         {
            return redirect('login'); 
+        }else{
+            return view('profile');
+
         }
-        return view('profile');
-        return $next($request);
+        //return $next($request);
     }
 }

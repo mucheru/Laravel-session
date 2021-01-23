@@ -20,27 +20,33 @@ use App\Http\Controllers\UserRegistration;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::view('createuser','createUser');
+Route::get('createuser',[UserRegistration::class, 'getdepartments']);
 
 Route::view('login','login');
 Route::post('/login', [LoginController::class, 'index']);
 Route::post('/profile', [LoginController::class, 'index']);
 Route::post('register', [UserRegistration::class, 'index']);
-
-Route::get('profile', function () {
-   
-});
-
+//Route::get('departmentdetails', [UserRegistration::class, 'getdepartments']);
 Route::get('logout', [LoginController::class, 'logout']);
-Route::view('profile','profile');
+/*Commented because Steve could not understand why profile route should be sucessful without login*/
+//Route::view('profile','profile');
+Route::view('createDepartment','createDepartment');
+Route::post('department', [UserRegistration::class, 'department']);
+Route::get('/users', [UserRegistration::class, 'getuser']);
+Route::get('/export', [UserRegistration::class, 'exportdata']);
+Route::get('/viewdepartment', [UserRegistration::class, 'displayDepartment']);
+Route::get('/pdf', [UserRegistration::class, 'gen']);
 
 
-/*Route::group(['middleware'=>['CustomAuth']], function(){
-    Route::view('profile','profile');
 
 
 
-});*/
+Route::group(['middleware'=>['CustomAuth']], function(){
+    //Route::view('profile','profile');
+    Route::post('/profile', [LoginController::class, 'index']);
+
+
+});
 
 
 

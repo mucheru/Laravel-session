@@ -21,7 +21,13 @@ class LoginController extends Controller
             $session_data=$request->session()->put('data',$request->input());
             $request->session()->get('data');
             return view('profile');
-        }     
+            if(!session()->has('data')){
+                return redirect('login');
+    
+            }
+        } 
+        
+        
        
     }
 

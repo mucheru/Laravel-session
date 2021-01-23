@@ -28,6 +28,15 @@ input[type=text], input[type=password] {
   background: #f1f1f1;
 }
 
+input[name=user_selected], {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
@@ -83,6 +92,15 @@ a {
 
     <label for="Last Name"><b>Last Name</b></label>
     <input type="text" placeholder="Enter last Name" name="lastname" id="lastname" required>
+    <label for="Department"><b>Select Department</b></label>
+    <div>
+    <select class="form-control" style="margin: 8px 0; background: #f1f1f1; padding: 15px;" id="selectUser" name="department_id" required focus>
+    <option value="" disabled selected>Please select department</option>        
+    @foreach($departments as $user)
+    <option value="{{$user->id}}">{{$user->department_name }}</option>
+    @endforeach
+  </select>
+  </div>
 
 
     <label for="email"><b>Email</b></label>
@@ -90,7 +108,6 @@ a {
 
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="password" id="psw" required>
-
     <hr>
     <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
